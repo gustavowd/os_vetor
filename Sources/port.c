@@ -20,17 +20,8 @@ interrupt void SwitchContext(void){
   SAVE_CONTEXT();
   SAVE_SP();
 
-  TCB[ct].stk=stk_tmp;
-  
-#if with_scheduler == 1
+  TCB[ct].stk=stk_tmp;  
   stk_tmp = scheduler();  
-#else
-  ct++;
-  if (ct >= it){
-    ct = 0;
-  }
-  stk_tmp = TCB[ct].stk;
-#endif
   
   RESTORE_SP();
   RESTORE_CONTEXT();

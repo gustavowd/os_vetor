@@ -1,11 +1,5 @@
 #include "port.h"
 
-#define sched_prio 0
-#define sched_circ 1
-
-#define with_scheduler 1
-#define sched sched_prio
-
 #define null (void*)0
 
 

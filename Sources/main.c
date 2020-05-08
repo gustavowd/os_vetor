@@ -24,12 +24,7 @@ void main(void) {
   InstallTask(task3, 4, stk3, sizeof(stk3));
   InstallTask(task4, 1, stk4, sizeof(stk4));   
   
-#if with_scheduler == 1
   start_os();
-#else
-  stk_tmp = TCB[0].stk;
-  dispatcher();
-#endif
 
   for(;;) {
     /* __RESET_WATCHDOG(); by default, COP is disabled with device init. When enabling, also reset the watchdog. */

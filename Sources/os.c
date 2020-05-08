@@ -39,12 +39,7 @@ void start_os(void){
   InstallTask(idle, 0, idle_stk, sizeof(idle_stk));
   init_os_timer();
   
-  #if sched == sched_prio
   stk_tmp = scheduler();
-  #else
-  current_task = readylist.head;
-  stk_tmp = current_task->stk;
-  #endif
   
   dispatcher();
 }
