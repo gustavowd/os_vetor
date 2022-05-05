@@ -9,7 +9,7 @@ cpu_t *PrepareStack(void *task, cpu_t *stk, int stk_size){
   *stk-- = (cpu_t)((int)task >> 8);
   *stk-- = 0;
   *stk-- = 0;
-  *stk-- = 0;
+  *stk-- = 0x60;
   *stk = 0;
   
   return stk;
@@ -17,16 +17,8 @@ cpu_t *PrepareStack(void *task, cpu_t *stk, int stk_size){
 
 
 interrupt void SwitchContext(void){
-  SAVE_CONTEXT();
-  SAVE_SP();
-
-  TCB[ct].stk=stk_tmp;  
-  stk_tmp = scheduler();  
-  
-  RESTORE_SP();
-  RESTORE_CONTEXT();
+	SC();
 }
-
 
 
 void init_os_timer(void){
@@ -40,14 +32,6 @@ interrupt void TickTimer(void){
   TPM1SC_TOF = 0;
   
   if(os_inc_and_compare()){
-    SAVE_CONTEXT();
-    SAVE_SP();
-    
-    TCB[ct].stk=stk_tmp;
-    stk_tmp = scheduler();
-  
-    RESTORE_SP();  
-    RESTORE_CONTEXT();
+	SC();
   }
-  
 }

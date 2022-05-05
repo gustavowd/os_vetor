@@ -1,6 +1,13 @@
 #include "port.h"
 
 #define null (void*)0
+#define SC()				\
+    SAVE_CONTEXT();			\
+    SAVE_SP();				\
+    TCB[ct].stk=stk_tmp;	\
+    stk_tmp = scheduler();	\
+    RESTORE_SP();			\
+    RESTORE_CONTEXT()
 
 
 typedef void (*task_t)(void); 

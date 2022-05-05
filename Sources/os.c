@@ -60,7 +60,10 @@ cpu_t os_inc_and_compare(void){
   for(i=0;i<it;i++){
     if(TCB[i].timeout == os_time){
       TCB[i].ready = 1;
-      ready = 1;
+      if (TCB[i].prio > TCB[ct].prio)
+      {
+		ready = 1;	
+      }
     }
   }
   
